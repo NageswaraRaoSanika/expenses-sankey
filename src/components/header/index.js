@@ -1,9 +1,16 @@
 import React from "react";
+import { useTranslation, withTranslation, Trans } from "react-i18next";
 
 const Header = () => {
+  const { i18n } = useTranslation();
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+  };
+
   return (
     <nav
-      className="navbar is-light"
+      className="navbar is-light pr-6"
       role="navigation"
       aria-label="main navigation"
     >
@@ -28,6 +35,25 @@ const Header = () => {
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
         </a>
+      </div>
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <button class="button is-light mt-1 navbar-link">Language</button>
+          <div class="navbar-dropdown">
+            <button
+              class="button is-white mt-1 navbar-item"
+              onClick={() => changeLanguage("en")}
+            >
+              English
+            </button>
+            <button
+              class="button is-white mt-1 navbar-item"
+              onClick={() => changeLanguage("hi")}
+            >
+              Hindi
+            </button>
+          </div>
+        </div>
       </div>
     </nav>
   );

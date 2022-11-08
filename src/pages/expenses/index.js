@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
+
 import Header from "../../components/header";
 import AddExpenseModal from "../../components/Modals/add-expense.modal.component";
 import SankeyChart from "../../components/sankey";
@@ -40,6 +42,8 @@ const ExpensesPage = () => {
   const { data, loading } = useSelector(selectExpenses);
   const dispatch = useDispatch();
 
+  const { t } = useTranslation();
+
   const [addExpensePath, setAddExpensePath] = useState([]);
 
   useEffect(() => {
@@ -57,13 +61,13 @@ const ExpensesPage = () => {
               <li key={key}>
                 <div className="columns">
                   <div className="column is-8">
-                    {key}
+                    {t(key)}
                     <button
                       onClick={() => setAddExpensePath([...prevKeys, key])}
                       type="button"
                       className="ml-2 button is-small tag is-light"
                     >
-                      Add Expense
+                      {t("Add Expense")}
                     </button>
                   </div>
                   <div className="column columns is-4 mt-0">
@@ -154,44 +158,46 @@ const ExpensesPage = () => {
   };
 
   return (
-    <div>
-      <Header />
-      <div className="columns  p-6">
-        <div className="column is-8">
-          <h3 className="title is-3 has-text-primary">
-            <nav className="level">
-              <div className="level-item ">
-                <div>
-                  <p className="heading">Total Expenses</p>
-                  <p className="title">{recSum(data)?.toLocaleString()}</p>
+    <Suspense fallback="loading">
+      <div>
+        <Header />
+        <div className="columns  p-6">
+          <div className="column is-8">
+            <h3 className="title is-3 has-text-primary">
+              <nav className="level">
+                <div className="level-item ">
+                  <div>
+                    <p className="heading">{t("Total Expenses")}</p>
+                    <p className="title">{recSum(data)?.toLocaleString()}</p>
+                  </div>
                 </div>
-              </div>
-            </nav>
-          </h3>
-          {chartData.length && !loading ? (
-            <SankeyChart data={chartData} />
-          ) : null}
-        </div>
-        <div className="column is-4">
-          {renderExpenses(data)}
-          <AddExpenseModal
-            onClose={() => setAddExpensePath([])}
-            onSave={(path, name, value) => {
-              dispatch(
-                addExpenseData({
-                  data,
-                  path: [...path, name],
-                  value,
-                })
-              );
-              setAddExpensePath([]);
-            }}
-            show={addExpensePath.length > 0}
-            path={addExpensePath}
-          />
+              </nav>
+            </h3>
+            {chartData.length && !loading ? (
+              <SankeyChart data={chartData} />
+            ) : null}
+          </div>
+          <div className="column is-4">
+            {renderExpenses(data)}
+            <AddExpenseModal
+              onClose={() => setAddExpensePath([])}
+              onSave={(path, name, value) => {
+                dispatch(
+                  addExpenseData({
+                    data,
+                    path: [...path, name],
+                    value,
+                  })
+                );
+                setAddExpensePath([]);
+              }}
+              show={addExpensePath.length > 0}
+              path={addExpensePath}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </Suspense>
   );
 };
 
