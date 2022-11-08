@@ -1,9 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Header from "../../components/header";
+import AddExpenseModal from "../../components/Modals/add-expense.modal.component";
 import SankeyChart from "../../components/sankey";
 
 import {
+  addExpenseData,
+  deleteExpenseData,
   getExpensesData,
   updateExpenseData,
 } from "../../store/actions/expenses.actions";
@@ -37,6 +40,8 @@ const ExpensesPage = () => {
   const { data, loading } = useSelector(selectExpenses);
   const dispatch = useDispatch();
 
+  const [addExpensePath, setAddExpensePath] = useState([]);
+
   useEffect(() => {
     dispatch(getExpensesData());
   }, [dispatch]);
@@ -51,22 +56,43 @@ const ExpensesPage = () => {
             return (
               <li key={key}>
                 <div className="columns">
-                  <div className="column is-8">{key}</div>
+                  <div className="column is-8">
+                    {key}
+                    <button
+                      onClick={() => setAddExpensePath([...prevKeys, key])}
+                      type="button"
+                      className="ml-2 button is-small tag is-light"
+                    >
+                      Add Expense
+                    </button>
+                  </div>
                   <div className="column columns is-4 mt-0">
                     <span className="tag is-success mr-1">
                       <input
-                        style={{ width: "90px" }}
+                        style={{ width: "80px" }}
                         type="text"
                         readOnly
                         disabled
                         value={recSum(expenses[key])?.toLocaleString()}
-                        onChange={(evt) => console.log(prevKeys, key)}
                       />
                     </span>
 
-                    <button type="button" className="button tag is-danger">
-                      Delete
-                    </button>
+                    {key !== "Total Expenses" && (
+                      <button
+                        onClick={(evt) =>
+                          dispatch(
+                            deleteExpenseData({
+                              data,
+                              path: [...prevKeys, key],
+                            })
+                          )
+                        }
+                        type="button"
+                        className="button tag is-danger"
+                      >
+                        Delete
+                      </button>
+                    )}
                   </div>
                 </div>
                 <ul>{renderExpenses(expenses[key], [...prevKeys, key])}</ul>
@@ -80,7 +106,7 @@ const ExpensesPage = () => {
                   <div className="column columns is-4 mt-0">
                     <span className="tag is-success mr-1">
                       <input
-                        style={{ width: "90px" }}
+                        style={{ width: "80px" }}
                         type="number"
                         value={value}
                         onChange={(evt) =>
@@ -94,7 +120,18 @@ const ExpensesPage = () => {
                         }
                       />
                     </span>
-                    <button type="button" className="button tag is-danger">
+                    <button
+                      onClick={(evt) =>
+                        dispatch(
+                          deleteExpenseData({
+                            data,
+                            path: [...prevKeys, key],
+                          })
+                        )
+                      }
+                      type="button"
+                      className="button tag is-danger"
+                    >
                       Delete
                     </button>
                   </div>
@@ -130,6 +167,21 @@ const ExpensesPage = () => {
           </nav>
           <hr />
           {renderExpenses(data)}
+          <AddExpenseModal
+            onClose={() => setAddExpensePath([])}
+            onSave={(path, name, value) => {
+              dispatch(
+                addExpenseData({
+                  data,
+                  path: [...path, name],
+                  value,
+                })
+              );
+              setAddExpensePath([]);
+            }}
+            show={addExpensePath.length > 0}
+            path={addExpensePath}
+          />
         </div>
       </div>
     </div>
