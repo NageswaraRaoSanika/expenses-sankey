@@ -102,7 +102,16 @@ const ExpensesPage = () => {
             return (
               <li key={key}>
                 <div className="columns">
-                  <div className="column is-8">{key}</div>
+                  <div className="column is-8">
+                    {key}
+                    <button
+                      onClick={() => setAddExpensePath([...prevKeys, key])}
+                      type="button"
+                      className="ml-2 button is-small tag is-light"
+                    >
+                      Add Expense
+                    </button>
+                  </div>
                   <div className="column columns is-4 mt-0">
                     <span className="tag is-success mr-1">
                       <input
@@ -149,23 +158,21 @@ const ExpensesPage = () => {
       <Header />
       <div className="columns  p-6">
         <div className="column is-8">
-          <h3 className="title is-3 has-text-primary">Expenditures</h3>
+          <h3 className="title is-3 has-text-primary">
+            <nav className="level">
+              <div className="level-item ">
+                <div>
+                  <p className="heading">Total Expenses</p>
+                  <p className="title">{recSum(data)?.toLocaleString()}</p>
+                </div>
+              </div>
+            </nav>
+          </h3>
           {chartData.length && !loading ? (
             <SankeyChart data={chartData} />
-          ) : (
-            "Loading Expenses"
-          )}
+          ) : null}
         </div>
         <div className="column is-4">
-          <nav className="level">
-            <div className="level-item ">
-              <div>
-                <p className="heading">Total Expenses</p>
-                <p className="title">{recSum(data)?.toLocaleString()}</p>
-              </div>
-            </div>
-          </nav>
-          <hr />
           {renderExpenses(data)}
           <AddExpenseModal
             onClose={() => setAddExpensePath([])}
