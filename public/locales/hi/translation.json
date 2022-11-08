@@ -1,3 +1,19 @@
 {
-  "Total Expenses": "कुल खर्च"
+  "Total Expenses": "कुल खर्च",
+  "EMIs": "मासिक किस्त",
+  "HDFC Personal Loan": "HDFC व्यक्तिगत ऋण",
+  "Axis Car Loan": "Axis कार ऋण",
+  "SBI Home Loan": "SBI गृह ऋण",
+  "Home Expenditures": "गृह व्यय",
+  "Food&Groceries": "खाद्य और किराने का सामान",
+  "Food": "भोजन",
+  "Vegatables": "सब्ज़ी",
+  "Fruits": "फल",
+  "Kitchen": "रसोईघर",
+  "Other Groceries": "अन्य किराने का सामान",
+  "Electricity": "बिजली",
+  "Internet": "इंटरनेट",
+  "Maid Salary": "नौकरानी वेतन",
+  "Fuel": "ईंधन",
+  "Entertainment": "मनोरंजन"
 }

@@ -107,7 +107,7 @@ const ExpensesPage = () => {
               <li key={key}>
                 <div className="columns">
                   <div className="column is-8">
-                    {key}
+                    {t(key)}
                     <button
                       onClick={() => setAddExpensePath([...prevKeys, key])}
                       type="button"

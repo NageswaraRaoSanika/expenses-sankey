@@ -1,5 +1,5 @@
 import React from "react";
-import { useTranslation, withTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const { i18n } = useTranslation();
@@ -36,18 +36,18 @@ const Header = () => {
           <span aria-hidden="true"></span>
         </a>
       </div>
-      <div class="navbar-end">
-        <div class="navbar-item has-dropdown is-hoverable">
-          <button class="button is-light mt-1 navbar-link">Language</button>
-          <div class="navbar-dropdown">
+      <div className="navbar-end">
+        <div className="navbar-item has-dropdown is-hoverable">
+          <button className="button is-light mt-1 navbar-link">Language</button>
+          <div className="navbar-dropdown">
             <button
-              class="button is-white mt-1 navbar-item"
+              className="button is-white mt-1 navbar-item"
               onClick={() => changeLanguage("en")}
             >
               English
             </button>
             <button
-              class="button is-white mt-1 navbar-item"
+              className="button is-white mt-1 navbar-item"
               onClick={() => changeLanguage("hi")}
             >
               Hindi
