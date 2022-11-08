@@ -38,7 +38,7 @@ const expenses = {
 // A mock function to mimic making an async request for data
 export const getExpenses = async () => {
   return new Promise((resolve) =>
-    setTimeout(() => resolve({ data: expenses }), 500)
+    setTimeout(() => resolve({ data: expenses }), 0)
   );
 };
 

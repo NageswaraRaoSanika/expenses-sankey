@@ -23,7 +23,7 @@ const AddExpenseModal = ({ show, path, onClose, onSave }) => {
         <div className="modal-background"></div>
         <div className="modal-card">
           <header className="modal-card-head">
-            <p className="modal-card-title">Add Expense</p>
+            <h2 className="modal-card-title">Add Expense</h2>
             <button
               onClick={onClose}
               className="delete"
