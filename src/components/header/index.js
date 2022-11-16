@@ -15,13 +15,8 @@ const Header = () => {
       aria-label="main navigation"
     >
       <div className="navbar-brand">
-        <a className="navbar-item" href="https://bulma.io">
-          <img
-            src="https://assets.website-files.com/6231e693006d733616e2ace5/62d596a500f3e87f2dafebf8_Centime_logo_1440_full%20(1).svg"
-            alt="Centime: Logo"
-            width="140"
-            height="100"
-          />
+        <a className="navbar-item">
+          Expenses
         </a>
 
         <a
